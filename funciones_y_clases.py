@@ -69,7 +69,7 @@ def contar_valles(arg):
     return cont
 print(contar_valles(arg))
 
-def saltando_rocas():
+def saltando_rocas(rocas):
     '''Mínimo número de saltos en las rocas
 
     Esta función hace parte de un juego en el que el jugador debe cruzar un río
@@ -84,6 +84,7 @@ def saltando_rocas():
     jugador para ganar la partida
     '''
     pass
+
 
 def pares_medias():
     '''Contar pares de medias
@@ -102,9 +103,18 @@ def pares_medias():
 # `lista`. Implementar el método __str__ para que devuelva un string con todos
 # los elementos del atributo `lista` unidos a través de comas. Ejemplo:
 # si `lista` es [1,2,3,4], __str__ debe devolver '1,2,3,4'
+lis = [1,2,3,4]
+class ListaComa:
+  def __init__(self, lista):
+    self.lista = lista
+    self.res = ""
+  def __str__(self,lista):
+    self.res =(str(lista).replace("[","")).replace("]","")
+    return self.res
 
-
-
+prueba = ListaComa(lis)
+prueba.__str__(lis)
+print(prueba.res)
 
 # Crear una clase llamada `Persona` que reciba en su constructor como 1er 
 # argumento un iterable con el valor inicial para una lista que se guardará en
@@ -122,6 +132,30 @@ def pares_medias():
 # si `nombres` es ['Juan', 'David'] y `apellidos` es ['Torres', 'Salazar'],
 # el método `nombre completo` debe devolver  'Juan David Torres Salazar'
 
+nomb = ["jhon", "eduar"]
+apell = ["cuellar", "ballen"]
+
+class Persona:
+  nom = list()
+  ape = list()
+  def __init__(self, nombre, apellido):
+    for a ,b in nombre, apellido:
+      if(a.isalpha() and b.isalpha()):
+        self.nom.append(a.capitalize())
+        self.nom.append(b.capitalize())
+      else:
+        break
+    self.nombres = self.nom
+    self.nombre = ""
+
+  def nombre_completo(self):
+    self.nombre = " ".join(self.nombres) 
+    return self.nombre
+
+nomPersona = Persona(nomb,apell)
+nomPersona.nombre_completo()
+print(nomPersona.nombre)
+  
 
 
 
@@ -136,4 +170,16 @@ def pares_medias():
 # Ejemplo:
 # si `fecha_nacimiento` es 1985-10-21 y la fecha actual es 2020-10-20, el método
 # `edad` debe devover 35.
+import datetime
+class Persona1(Persona):
+  def __init__(self,fechaNacimiento):
+    self.fecha_nacimiento = datetime.datetime.strptime(fechaNacimiento,"%Y-%m-%d")
 
+  def edad(self):
+    actual = datetime.datetime.now()
+    diferencia =  actual.year - self.fecha_nacimiento.year
+    return diferencia
+
+prueba = Persona1("1990-09-11")
+edad = prueba.edad()
+print(edad)
