@@ -1,14 +1,14 @@
 global1 = 34
 
-def cambiar_global():
+def cambiar_global(glo1):
     '''Cambiar una variable global
 
     Esta función debe asignarle a la variable global `global1` el valor que se
     le pasa como único argumento posicional.
     '''
-    global1 = 33
+    global1 = glo1
     return global1
-print(cambiar_global())
+print(cambiar_global(98))
 
 
 
@@ -108,12 +108,12 @@ class ListaComa:
   def __init__(self, lista):
     self.lista = lista
     self.res = ""
-  def __str__(self,lista):
-    self.res =(str(lista).replace("[","")).replace("]","")
+  def __str__(self):
+    self.res =(str(self.lista).replace("[","")).replace("]","").replace(" ","")
     return self.res
 
 prueba = ListaComa(lis)
-prueba.__str__(lis)
+prueba.__str__()
 print(prueba.res)
 
 # Crear una clase llamada `Persona` que reciba en su constructor como 1er 
@@ -172,7 +172,8 @@ print(nomPersona.nombre)
 # `edad` debe devover 35.
 import datetime
 class Persona1(Persona):
-  def __init__(self,fechaNacimiento):
+  def __init__(self,nombre,apellido,fechaNacimiento):
+    Persona.__init__(self,nombre,apellido)
     self.fecha_nacimiento = datetime.datetime.strptime(fechaNacimiento,"%Y-%m-%d")
 
   def edad(self):
@@ -180,6 +181,6 @@ class Persona1(Persona):
     diferencia =  actual.year - self.fecha_nacimiento.year
     return diferencia
 
-prueba = Persona1("1990-09-11")
+prueba = Persona1(nomb,apell,"1990-09-11")
 edad = prueba.edad()
 print(edad)
