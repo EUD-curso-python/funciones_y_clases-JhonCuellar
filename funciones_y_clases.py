@@ -6,8 +6,9 @@ def cambiar_global(glo1):
     Esta función debe asignarle a la variable global `global1` el valor que se
     le pasa como único argumento posicional.
     '''
+    global global1
     global1 = glo1
-    return global1
+    pass
 print(cambiar_global(98))
 
 
@@ -58,14 +59,11 @@ def contar_valles(arg):
     representados en la lista, que para el ejemplo que se acaba de mostrar es
     de 3 valles.
     '''
-    va1 = False
     cont = 0
-    for a in arg:
-      if(a == 1):
-        va1 = True
-      if(a == -1 and va1 == True):
-        va1 = False
-        cont =  cont + 1 
+    for a in range(len(arg)):
+      if (arg[a-1] == -1 and arg[a] != -1 and (arg[a+1] == 1 or arg[a+1] != -1) ):
+      #if arg[a] == 0:
+        cont =  cont + 1
     return cont
 print(contar_valles(arg))
 
@@ -83,10 +81,22 @@ def saltando_rocas(rocas):
     El objetivo es devolver el número mínimo de saltos que debe realizar el 
     jugador para ganar la partida
     '''
+    cont  = 0
+    salto = 0
+    while cont < len(rocas)-1:
+      if rocas[cont + 2] != 1:
+        cont +=2
+      elif rocas[cont + 1] != 1:
+        cont +=1
+      else:
+        break
+      salto +=1
+    return salto
     pass
+rocas = [0,0,0,1,0,1,0,0,1,1,0]
+print("cont: " + str(saltando_rocas(rocas)))
 
-
-def pares_medias():
+def pares_medias(lisPar):
     '''Contar pares de medias
 
     Esta función debe recibir como argumento una lista de enteros. Cada elemento
@@ -96,8 +106,22 @@ def pares_medias():
     uno de los colores que se encuentren en la lista, y los valores son la 
     cantidad de pares que se han encontrado para cada color.
     '''
+    diccionario ={}
+    valor = []
+    for aa in lisPar:
+      diccionario.setdefault(aa,0)
+    for ae in lisPar:
+      diccionario[ae] += 1
+    for ai in diccionario:
+      diccionario[ai] = diccionario[ai]//2
+      if diccionario[ai] == 0:
+        valor.append(ai)
+    for ao in valor:
+      diccionario.pop(ao)
+    return diccionario
     pass
-
+lisPar = [1,2,3,4,4,3,6,7,3,2,9,7,1,5]
+print(pares_medias(lisPar))
 # Crear una clase llamada `ListaComa` que reciba en su constructor un iterable
 # con el valor inicial para una lista que se guardará en un atributo llamado 
 # `lista`. Implementar el método __str__ para que devuelva un string con todos

@@ -22,6 +22,7 @@ def test_cambiar_global(var):
     try: md.cambiar_global(var)
     except: raise Exception('Función "{}" genera error'.format(func_name))
     assert md.global1 == var, '{}: No se cambió correctamente "global1"'.format(func_name)
+    
 
 bisiesto_fn = lambda x: False if not x % 4 == 0 else (True if not x % 100 == 0 else (False if not x % 400 == 0 else True))
 anio_bisiesto = [
