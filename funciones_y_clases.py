@@ -63,7 +63,6 @@ def contar_valles(arg):
       if arg[a] == -1:
         i = a+1
         while i < len(arg):
-          print(i)
           if arg[i] == -1:
             break
           elif arg[i] == 1:
@@ -90,19 +89,18 @@ def saltando_rocas(rocas):
     '''
     cont  = 0
     salto = 0
-    while cont < len(rocas) - 1:
-      print(cont)
-      if rocas[cont + 2] != 1:
-        cont +=2
-      elif rocas[cont + 1] != 1:
-        cont +=1
-      else:
+    while cont < len(rocas):
+      if (cont + 2) <  len(rocas):
+        if rocas[cont + 2] != 1:
+          cont +=2
+        elif rocas[cont + 1] != 1:
+          cont +=1
+      else: 
         break
       salto +=1
-      print("Salto: " + str(salto))
     return salto
     
-rocas = [1,0,0,1,0,1,0,0,1,1,0]
+rocas = [1,0,0,0]
 print("cont: " + str(saltando_rocas(rocas)))
 
 def pares_medias(lisPar):
@@ -128,7 +126,6 @@ def pares_medias(lisPar):
     for ao in valor:
       diccionario.pop(ao)
     return diccionario
-    pass
 lisPar = [1,2,3,4,4,3,6,7,3,2,9,7,1,5]
 print(pares_medias(lisPar))
 # Crear una clase llamada `ListaComa` que reciba en su constructor un iterable
@@ -210,11 +207,15 @@ class Persona1(Persona):
 
   def edad(self):
     actual = datetime.datetime.now()
-    print(self.fecha_nacimiento)
-    diferencia =  actual - self.fecha_nacimiento
-    difeDias = int(diferencia.days//365.25)
-    return difeDias
-fecha = datetime.datetime.strptime("1990-03-04","%Y-%m-%d")
+    diferencia = 0
+    if actual.year > self.fecha_nacimiento.year:
+      diferencia =  actual.year - self.fecha_nacimiento.year
+      if actual.month < self.fecha_nacimiento.month:
+        diferencia -=1
+      elif actual.month == self.fecha_nacimiento.month and  actual.days <= self.fecha_nacimiento.days:
+        diferencia -=1
+    return diferencia
+fecha = datetime.datetime.strptime("2021-04-05","%Y-%m-%d")
 prueba = Persona1(nomb,apell,fecha)
 edad = prueba.edad()
 print(edad)
