@@ -40,7 +40,6 @@ print(anio_bisiesto(2020))
 
 
 
-arg = [-1,1,0,1,1,-1,0,0,1,-1,1,1,-1,-1]
 def contar_valles(arg):
     r'''Contar el número de valles
 
@@ -61,11 +60,19 @@ def contar_valles(arg):
     '''
     cont = 0
     for a in range(len(arg)):
-      if (arg[a-1] == -1 and arg[a] != -1 and (arg[a+1] == 1 or arg[a+1] != -1) ):
-      #if arg[a] == 0:
-        cont =  cont + 1
+      if arg[a] == -1:
+        i = a+1
+        while i < len(arg):
+          print(i)
+          if arg[i] == -1:
+            break
+          elif arg[i] == 1:
+            cont =  cont + 1
+            break            
+          i += 1
     return cont
-print(contar_valles(arg))
+arg = [-1,1,0,1,1,-1,0,0,1,-1,1,1,-1,-1]
+print("valles: "  + str(contar_valles(arg)))
 
 def saltando_rocas(rocas):
     '''Mínimo número de saltos en las rocas
@@ -83,7 +90,8 @@ def saltando_rocas(rocas):
     '''
     cont  = 0
     salto = 0
-    while cont < len(rocas)-1:
+    while cont < len(rocas) - 1:
+      print(cont)
       if rocas[cont + 2] != 1:
         cont +=2
       elif rocas[cont + 1] != 1:
@@ -91,9 +99,10 @@ def saltando_rocas(rocas):
       else:
         break
       salto +=1
+      print("Salto: " + str(salto))
     return salto
-    pass
-rocas = [0,0,0,1,0,1,0,0,1,1,0]
+    
+rocas = [1,0,0,1,0,1,0,0,1,1,0]
 print("cont: " + str(saltando_rocas(rocas)))
 
 def pares_medias(lisPar):
@@ -157,30 +166,29 @@ print(prueba.res)
 # el método `nombre completo` debe devolver  'Juan David Torres Salazar'
 
 nomb = ["jhon", "eduar"]
-apell = ["cuellar", "ballen"]
-
+apell = ["cuellar", "Ballen"]
 class Persona:
   nom = list()
   ape = list()
   def __init__(self, nombre, apellido):
-    for a ,b in nombre, apellido:
-      if(a.isalpha() and b.isalpha()):
-        self.nom.append(a.capitalize())
-        self.nom.append(b.capitalize())
+    for a in range(len(nombre)):
+      if(nombre[a].isalpha()):
+        nombre[a] = nombre[a].capitalize()
       else:
         break
-    self.nombres = self.nom
-    self.nombre = ""
+    for b in range(len(apellido)):
+      if(apellido[b].isalpha()):
+        apellido[b] = apellido[b].capitalize()
+    self.nombres = nombre
+    self.apellidos = apellido
 
   def nombre_completo(self):
-    self.nombre = " ".join(self.nombres) 
+    self.nombre = " ".join(self.nombres) + " " +" ".join(self.apellidos)
     return self.nombre
 
 nomPersona = Persona(nomb,apell)
 nomPersona.nombre_completo()
 print(nomPersona.nombre)
-  
-
 
 
 
@@ -198,13 +206,15 @@ import datetime
 class Persona1(Persona):
   def __init__(self,nombre,apellido,fechaNacimiento):
     Persona.__init__(self,nombre,apellido)
-    self.fecha_nacimiento = datetime.datetime.strptime(fechaNacimiento,"%Y-%m-%d")
+    self.fecha_nacimiento = fechaNacimiento
 
   def edad(self):
     actual = datetime.datetime.now()
-    diferencia =  actual.year - self.fecha_nacimiento.year
-    return diferencia
-
-prueba = Persona1(nomb,apell,"1990-09-11")
+    print(self.fecha_nacimiento)
+    diferencia =  actual - self.fecha_nacimiento
+    difeDias = int(diferencia.days//365.25)
+    return difeDias
+fecha = datetime.datetime.strptime("1990-03-04","%Y-%m-%d")
+prueba = Persona1(nomb,apell,fecha)
 edad = prueba.edad()
 print(edad)
